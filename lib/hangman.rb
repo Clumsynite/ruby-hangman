@@ -2,7 +2,7 @@
 
 puts 'Welcome to Hangman by Clumsyknight'
 
-def random_word
+def secret_word
   word_list = File.read '5desk.txt'
   words_array = word_list.split(' ')
   word_sample = words_array.sample
@@ -10,4 +10,4 @@ def random_word
   word_sample
 end
 
-puts random_word
+puts secret_word
