@@ -1,0 +1,15 @@
+---
+:secret_word: picayune
+:guess_word_array:
+- a
+- b
+:dash:
+- "-"
+- "-"
+- "-"
+- a
+- "-"
+- "-"
+- "-"
+- "-"
+:turn: 2

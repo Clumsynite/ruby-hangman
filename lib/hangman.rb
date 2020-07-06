@@ -1,13 +1,16 @@
 # frozen_string_literal: true
 
+require 'yaml'
+
 # Hangman class with the game logic
 class Hangman
-  attr_accessor :secret_word, :guess, :guess_word
+  attr_accessor :secret_word, :guess
   def initialize
     @secret_word = secret_word
     @guess = guess
     @guess_word_array = []
-    @guess_word = guess_word
+    @load = Load.new
+    @turn = 0
   end
 
   def create_secret_word
@@ -16,9 +19,6 @@ class Hangman
     word_sample = words_array.sample
     word_sample = words_array.sample until word_sample.length.between?(5, 12)
     @secret_word = word_sample.downcase
-  end
-
-  def create_secret_word_as_dash
     @dash = Array.new(@secret_word.length, '-')
   end
 
@@ -27,13 +27,14 @@ class Hangman
   end
 
   def guess_secret_word
-    puts "\nYou have 10 turns to guess the Secret word set by me"
-    10.times do |time|
-      print "\n#{10 - time} Guesses left -> "
+    puts "\nYou have 10 turns to guess the Secret word set by me\nIf you ever want to save the game enter 'save'"
+    until @turn >= 10
+      print "\n#{10 - @turn} Guesses left -> "
       display_secret_word_as_dash
       ask_for_letter
       display_secret_word_as_dash
-      check_win_state(time)
+      check_win_state(@turn)
+      @turn += 1
     end
   end
 
@@ -48,15 +49,42 @@ class Hangman
   end
 
   def check_guess_letter(guess)
-    if guess.match(/[a-z]/) && guess.length == 1 && !already_guessed?(guess)
-      @guessed = true
-      @guess_word_array.push(guess)
-      validate_guess_letter(guess)
+    if guess == 'save' || guess == 'load'
+      save_or_load(guess)
+    elsif guess.match(/[a-z]/) && guess.length == 1 && !already_guessed?(guess)
+      push_to_array(guess)
     elsif already_guessed?(guess)
       puts "You have already guess this character\nTry another one"
-    elsif guess.match(/[^a-z]/)
+    else
       puts 'Please enter AN alphabet'
     end
+  end
+
+  def save_or_load(guess)
+    save_game if guess == 'save'
+    load_game if guess == 'load'
+  end
+
+  def save_game
+    @save = Save.new(@secret_word, @guess_word_array, @dash, @turn)
+    @save.write_save
+    puts 'Game saved Successfully'
+  end
+
+  def load_game
+    lo = @load.load_file
+    @secret_word = lo[:secret_word]
+    @guess_word_array = lo[:guess_word_array]
+    @dash = lo[:dash]
+    @turn = lo[:turn]
+    puts "\nGame loaded to your last saved state\n#{10 - lo[:turn]} Guesses left -> #{lo[:dash].join(' ')}"
+    puts "Letters guessed: #{lo[:guess_word_array].join(' ')}"
+  end
+
+  def push_to_array(guess)
+    @guessed = true
+    @guess_word_array.push(guess)
+    validate_guess_letter(guess)
   end
 
   def validate_guess_letter(letter)
@@ -121,8 +149,33 @@ class Game
   def start
     heading
     @hangman.create_secret_word
-    @hangman.create_secret_word_as_dash
     @hangman.guess_secret_word
+  end
+end
+
+# Save game as current state
+class Save
+  attr_accessor :secret_word, :guess_word_array, :dash, :turn
+
+  def initialize(secret_word, guess_word_array, dash, turn)
+    @secret_word = secret_word
+    @guess_word_array = guess_word_array
+    @dash = dash
+    @turn = turn
+  end
+
+  def write_save
+    File.open('save.yaml', 'w') unless File.exist? 'save.yaml'
+    data = { secret_word: @secret_word, guess_word_array: @guess_word_array, dash: @dash, turn: @turn }
+    File.open('save.yaml', 'w') { |file| file.write(data.to_yaml) }
+  end
+end
+
+# Load game from save state
+class Load
+  def load_file
+    abort('No save information found') unless File.exist? 'save.yaml'
+    YAML.load(File.read('save.yaml'))
   end
 end
 
