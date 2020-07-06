@@ -1,4 +1,4 @@
-<h1>HangMan</h1>
+<h1>Hangman</h1>
 
 Hangman in ruby using File IO
 
