@@ -1,15 +1,22 @@
 ---
-:secret_word: picayune
+:secret_word: enviability
 :guess_word_array:
-- a
-- b
+- l
+- o
+- p
+- n
+- m
+- e
 :dash:
+- e
+- n
 - "-"
 - "-"
 - "-"
-- a
+- "-"
+- "-"
+- l
 - "-"
 - "-"
 - "-"
-- "-"
-:turn: 2
+:turn: 6

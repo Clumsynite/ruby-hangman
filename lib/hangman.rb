@@ -27,7 +27,6 @@ class Hangman
   end
 
   def guess_secret_word
-    puts "\nYou have 10 turns to guess the Secret word set by me\nIf you ever want to save the game enter 'save'"
     until @turn >= 10
       print "\n#{10 - @turn} Guesses left -> "
       display_secret_word_as_dash
@@ -146,8 +145,15 @@ class Game
     HEREDOC
   end
 
+  def guess_info
+    puts "\nYou have 10 turns to guess the Secret word set by me"
+    puts "\nSpecial Keys: 'save' to save the game at any point"
+    puts "              'load' to load the game from its previous save state"
+  end
+
   def start
     heading
+    guess_info
     @hangman.create_secret_word
     @hangman.guess_secret_word
   end
