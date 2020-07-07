@@ -15,7 +15,7 @@ class Save
 
   def write_save
     File.open('save.yaml', 'w') unless File.exist? 'save.yaml'
-    data = { secret_word: @secret_word, guess_word_array: @guess_word_array, dash: @dash, turn: @turn }
+    data = { 'secret_word' => @secret_word, 'guess_word_array' => @guess_word_array, 'dash' => @dash, 'turn' => @turn }
     File.open('save.yaml', 'w') { |file| file.write(data.to_yaml) }
   end
 end

@@ -1,13 +1,15 @@
 ---
-:secret_word: shipworm
-:guess_word_array: []
-:dash:
+secret_word: issuer
+guess_word_array:
+- e
+- p
+- o
+- a
+dash:
 - "-"
 - "-"
 - "-"
 - "-"
+- e
 - "-"
-- "-"
-- "-"
-- "-"
-:turn: 0
+turn: 4

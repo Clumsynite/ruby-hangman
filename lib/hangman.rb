@@ -70,12 +70,12 @@ class Hangman
 
   def load_game
     lo = @load.load_file
-    @secret_word = lo[:secret_word]
-    @guess_word_array = lo[:guess_word_array]
-    @dash = lo[:dash]
-    @turn = lo[:turn]
-    puts "\nGame loaded to your last saved state\n#{10 - lo[:turn]} Guesses left -> #{lo[:dash].join(' ')}"
-    puts "Letters guessed: #{lo[:guess_word_array].join(' ')}"
+    @secret_word = lo['secret_word']
+    @guess_word_array = lo['guess_word_array']
+    @dash = lo['dash']
+    @turn = lo['turn']
+    puts "\nGame loaded to your last saved state\n#{10 - lo['turn']} Guesses left -> #{lo['dash'].join(' ')}"
+    puts "Letters guessed: #{lo['guess_word_array'].join(' ')}"
   end
 
   def push_to_array(guess)
