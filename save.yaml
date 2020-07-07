@@ -1,22 +1,16 @@
 ---
-:secret_word: enviability
+:secret_word: tribally
 :guess_word_array:
-- l
-- o
-- p
-- n
-- m
-- e
+- a
+- i
+- t
 :dash:
-- e
-- n
+- t
+- "-"
+- i
+- "-"
+- a
 - "-"
 - "-"
 - "-"
-- "-"
-- "-"
-- l
-- "-"
-- "-"
-- "-"
-:turn: 6
+:turn: 3
