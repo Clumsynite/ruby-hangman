@@ -50,7 +50,7 @@ class Hangman
   def check_guess_letter(guess)
     if guess == 'save' || guess == 'load'
       save_or_load(guess)
-    elsif guess.match(/[a-z]/) && guess.length == 1 && !already_guessed?(guess)
+    elsif guess.match(/^[a-z]$/) && !already_guessed?(guess)
       push_to_array(guess)
     elsif already_guessed?(guess)
       puts "You have already guess this character\nTry another one"
