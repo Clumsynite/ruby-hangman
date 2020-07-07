@@ -46,7 +46,7 @@ class Hangman
   end
 
   def check_guess_letter(guess)
-    if guess == 'save' || guess == 'load'
+    if %w[save load].include? guess
       save_or_load(guess)
     elsif guess.match(/^[a-z]$/) && !already_guessed?(guess)
       push_to_array(guess)

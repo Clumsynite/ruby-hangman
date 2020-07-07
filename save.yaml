@@ -1,16 +1,13 @@
 ---
-:secret_word: tribally
-:guess_word_array:
-- a
-- i
-- t
+:secret_word: shipworm
+:guess_word_array: []
 :dash:
-- t
-- "-"
-- i
-- "-"
-- a
 - "-"
 - "-"
 - "-"
-:turn: 3
+- "-"
+- "-"
+- "-"
+- "-"
+- "-"
+:turn: 0
